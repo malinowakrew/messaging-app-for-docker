@@ -35,14 +35,14 @@ stages {
 	}
     }
 }
-
-def sendEmailAfter(status){
- 	echo status
-            emailext attachLog: true,
-                body: status,
-                recipientProviders: [developers(), requestor()],
-                to: 'ed.mroz.11@gmail.com',
-                subject: "Jenkins stage status"
-}
+post {
+    failure {
+        mail to: 'emroz@student.agh.edu.pl',
+             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+             body: "Something is wrong with ${env.BUILD_URL}"
+    }
+    success {
+            echo 'I succeeded :D'
+    }
 
 
