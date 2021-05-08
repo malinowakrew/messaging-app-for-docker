@@ -24,25 +24,16 @@ stages {
 	   	sh "chmod +x -R ${env.WORKSPACE}"
 	   	sh './tests.sh'
 	   }
-	   post {
-        	 failure {
-          		sendEmailAfter('Tests failed')
-        	}
-        	success {
-            		sendEmailAfter('Tests successful')
-       	 }
-   	    }
-	}
-    }
-}
+
 post {
     failure {
-        mail to: 'emroz@student.agh.edu.pl',
+        mail to: 'ed.mroz.11@gmail.com',
              subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
              body: "Something is wrong with ${env.BUILD_URL}"
     }
     success {
             echo 'I succeeded :D'
     }
-
+}
+	  }
 
