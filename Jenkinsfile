@@ -7,8 +7,6 @@ stages {
 	  steps {
 	   echo 'Building.'
 	        sh 'git pull origin master'
-		sh 'docker rm node_app_server'
-		sh 'docker rm node_app_client'
                 sh 'docker-compose up -d'
 	   }
 	   post {
