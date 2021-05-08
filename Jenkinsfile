@@ -7,6 +7,8 @@ stages {
 	  steps {
 	   echo 'Building.'
 	        sh 'git pull origin master'
+		sh 'docker rm node_app_server'
+		sh 'docker rm node_app_client'
                 sh 'docker-compose up -d'
 	   }
 	   post {
@@ -24,16 +26,24 @@ stages {
 	   	sh "chmod +x -R ${env.WORKSPACE}"
 	   	sh './tests.sh'
 	   }
-
-post {
-    failure {
-        mail to: 'ed.mroz.11@gmail.com',
-             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-             body: "Something is wrong with ${env.BUILD_URL}"
-    }
-    success {
-            echo 'I succeeded :D'
+	   post {
+        	 failure {
+          		sendEmailAfter('Tests failed')
+        	}
+        	success {
+            		sendEmailAfter('Tests successful')
+       	 }
+   	    }
+	}
     }
 }
-	  }
+
+def sendEmailAfter(status){
+ 	echo status
+            emailext attachLog: true,
+                body: status,
+                recipientProviders: [developers(), requestor()],
+                to: 'knowak242@gmail.com',
+                subject: "Jenkins stage status"
+}
 
