@@ -5,10 +5,10 @@ agent any
 stages {
 	 stage('Build') {
 	  steps {
-	   echo 'Building.'
+	   	echo 'Building stage.'
 	        sh 'git pull origin master'
-		sh 'docker rm node_app_server'
-		sh 'docker rm node_app_client'
+		/* sh 'docker rm node_app_server'
+		sh 'docker rm node_app_client' */
                 sh 'docker-compose up -d'
 	   }
 	   post {
@@ -34,8 +34,22 @@ stages {
         	success {
             		sendEmailAfter('Tests successful')
        	 }
-   	    }
-		   		
+   	    }	   		
+	}
+	stage('Deploy') {
+	   steps {
+	  	echo 'Deploy stage.'
+		sh ' docker build -t messaging-app -f docker/Dockerfile-deploy . '
+	   }
+		  
+	   post {
+        	 failure {
+          		sendEmailAfter('Deploy failed')
+        	}
+        	success {
+            		sendEmailAfter('Deploy successful')
+       	 }
+   	    }		   		
 	}
     }
 }
