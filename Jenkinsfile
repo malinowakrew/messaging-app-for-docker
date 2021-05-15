@@ -35,11 +35,7 @@ stages {
             		sendEmailAfter('Tests successful')
        	 }
    	    }
-		   		  
-	  stage('Deploy') {
-	   steps { 
-		   
-	   }
+		   		
 	}
     }
 }
