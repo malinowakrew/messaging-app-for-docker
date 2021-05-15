@@ -26,6 +26,7 @@ stages {
 	   	sh "chmod +x -R ${env.WORKSPACE}"
 	   	sh './tests.sh'
 	   }
+		  
 	   post {
         	 failure {
           		sendEmailAfter('Tests failed')
