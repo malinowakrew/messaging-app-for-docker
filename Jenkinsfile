@@ -6,6 +6,7 @@ stages {
 	 stage('Build') {
 	  steps {
 	   echo 'Building.'
+		sh 'eval "$(docker-machine env default)"'
 	        sh 'git pull origin master'
                 sh 'docker-compose up -d'
 	   }
