@@ -15,7 +15,7 @@ stages {
 		sh 'eval "$(docker-machine env default)"'
 	        sh 'git pull origin master'
                 sh 'docker-compose up'
-		dockerImage = docker.build registry + “:$BUILD_NUMBER”
+		dockerImage = docker.build registry
 	   }
 	   post {
 		failure {
@@ -29,7 +29,6 @@ stages {
 	  stage('Test') {
 	   steps {
 	  	echo 'Testing stage.'
-	   	sh "chmod +x -R ${env.WORKSPACE}"
 	   	sh 'code/wait.sh server:1234 -- echo READY && node code/client.js'
 	   }
 	   post {
