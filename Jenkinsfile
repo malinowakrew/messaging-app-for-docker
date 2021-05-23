@@ -1,9 +1,9 @@
 pipeline {
 
 environment {
- 	registry = “malinowakrew/lab7”
- 	registryCredential = ‘dockerhub’
- 	dockerImage = ‘’
+ 	registry = "malinowakrew/lab7"
+ 	registryCredential = "dockerhub"
+ 	dockerImage = "
  }
 
 agent any
@@ -16,6 +16,8 @@ stages {
 	        sh 'git pull origin master'
                 sh 'docker-compose up'
 		dockerImage = docker.build registry
+		archiveArtifacts artifacts: 'client', fingerprint: true 
+		archiveArtifacts artifacts: 'server', fingerprint: true 
 	   }
 	   post {
 		failure {
@@ -42,9 +44,9 @@ stages {
 	}
 	stage('Deploy'){
 		steps{
-			docker.withRegistry( ‘’, registryCredential ) {
+			docker.withRegistry( "", registryCredential ) {
  			dockerImage.push()
- 			dockerImage.push(‘latest’)
+ 			dockerImage.push("latest")
 		}
 	}
     }
