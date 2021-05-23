@@ -1,5 +1,11 @@
 pipeline {
 
+environment {
+ 	registry = “zarczynsky/lab7”
+ 	registryCredential = ‘dockerhub’
+ 	dockerImage = ‘’
+ }
+
 agent any
 	
 stages {
@@ -9,6 +15,7 @@ stages {
 		sh 'eval "$(docker-machine env default)"'
 	        sh 'git pull origin master'
                 sh 'docker-compose up'
+		dockerImage = docker.build registry + “:$BUILD_NUMBER”
 	   }
 	   post {
 		failure {
@@ -23,7 +30,7 @@ stages {
 	   steps {
 	  	echo 'Testing stage.'
 	   	sh "chmod +x -R ${env.WORKSPACE}"
-	   	sh './tests.sh'
+	   	sh 'code/wait.sh server:1234 -- echo READY && node code/client.js'
 	   }
 	   post {
         	 failure {
@@ -33,6 +40,13 @@ stages {
             		sendEmailAfter('Tests successful')
        	 }
    	    }
+	}
+	stage('Deploy'){
+		steps{
+			docker.withRegistry( ‘’, registryCredential ) {
+ 			dockerImage.push()
+ 			dockerImage.push(‘latest’)
+		}
 	}
     }
 }
