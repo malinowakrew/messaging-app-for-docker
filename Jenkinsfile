@@ -14,9 +14,11 @@ stages {
 	   echo 'Building.'
 		sh 'eval "$(docker-machine env default)"'
 	        sh 'git pull origin master'
-		dockerImage = docker.build registry
 		archiveArtifacts artifacts: 'client', fingerprint: true 
 		archiveArtifacts artifacts: 'server', fingerprint: true 
+		script {
+		dockerImage = docker.build registry}
+		
 	   }
 	   post {
 		failure {
@@ -43,9 +45,10 @@ stages {
 	}
 	stage('Deploy'){
 		steps{
+			script {
 			docker.withRegistry( "", registryCredential ) {
  			dockerImage.push()
- 			dockerImage.push("latest")
+ 			dockerImage.push("latest")}
 		}
 	}
     }
