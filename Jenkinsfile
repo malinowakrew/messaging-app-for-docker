@@ -1,7 +1,7 @@
 pipeline {
 
 environment {
- 	registry = "malinowakrew/ubuntu-git"
+ 	registry = "malinowakrew/lab07"
  	registryCredential = "dockerhub"
  	dockerImage = ""
  }
