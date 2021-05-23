@@ -33,8 +33,7 @@ stages {
 	}
 	  stage('Test') {
 	   steps {
-	  	echo 'Testing stage.'
-	   	sh 'code/wait.sh server:1234 -- echo READY && node code/client.js'
+	   	sh '-c './src/wait.sh app_server:8081 -- echo READY && node ./src/client.js''
 	   }
 	   post {
         	 failure {
