@@ -14,10 +14,8 @@ stages {
 	   echo 'Building.'
 		sh 'eval "$(docker-machine env default)"'
 	        sh 'git pull origin master'
-		script {
-		dockerImage = docker.build registry}
-		
-	   }
+		sh "docker-compose up -d"
+
 	   post {
 		failure {
 		   	sendEmailAfter('Build failed')
