@@ -1,7 +1,7 @@
 pipeline {
 
 environment {
- 	registry = "malinowakrew/lab07"
+ 	registry = "malinowakrew/ubuntu-git"
  	registryCredential = "dockerhub"
  	dockerImage = ""
  }
@@ -14,7 +14,6 @@ stages {
 	   echo 'Building.'
 		sh 'eval "$(docker-machine env default)"'
 	        sh 'git pull origin master'
-                sh 'docker-compose up'
 		dockerImage = docker.build registry
 		archiveArtifacts artifacts: 'client', fingerprint: true 
 		archiveArtifacts artifacts: 'server', fingerprint: true 
