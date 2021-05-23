@@ -19,7 +19,7 @@ stages {
 		//sh "docker-compose up -d"
 		sh 'cd client'
 		script {
- 			dockerImage = docker.build registry + “:$BUILD_NUMBER”
+ 			dockerImage = docker.build registry
  		}
 	}
 	   post {
