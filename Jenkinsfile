@@ -3,7 +3,7 @@ pipeline {
 environment {
  	registry = "malinowakrew/lab7"
  	registryCredential = "dockerhub"
- 	dockerImage = "
+ 	dockerImage = ""
  }
 
 agent any
