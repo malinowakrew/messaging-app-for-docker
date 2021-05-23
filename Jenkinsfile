@@ -15,7 +15,7 @@ stages {
 		sh 'eval "$(docker-machine env default)"'
 	        sh 'git pull origin master'
                 sh 'docker-compose up'
-		dockerImage = docker.build registry
+		dockerImage = docker.build registry + ":$BUILD_NUMBER"
 		archiveArtifacts artifacts: 'client', fingerprint: true 
 		archiveArtifacts artifacts: 'server', fingerprint: true 
 	   }
