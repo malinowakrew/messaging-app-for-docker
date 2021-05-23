@@ -14,8 +14,6 @@ stages {
 	   echo 'Building.'
 		sh 'eval "$(docker-machine env default)"'
 	        sh 'git pull origin master'
-		archiveArtifacts artifacts: 'client', fingerprint: true 
-		archiveArtifacts artifacts: 'server', fingerprint: true 
 		script {
 		dockerImage = docker.build registry}
 		
