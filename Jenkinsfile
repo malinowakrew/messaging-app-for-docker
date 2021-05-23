@@ -19,7 +19,7 @@ stages {
 		//sh "docker-compose up -d"
 		sh 'cd client'
 		script {
- 			dockerImage = docker.build registry
+ 			dockerImage = docker.build registry ./client
  		}
 	}
 	   post {
