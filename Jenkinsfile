@@ -49,6 +49,7 @@ stages {
 	}
     }
 }
+}
 
 def sendEmailAfter(status){
  	echo status
