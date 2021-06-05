@@ -59,6 +59,6 @@ def sendEmailAfter(status){
             emailext attachLog: true,
                 body: status,
                 recipientProviders: [developers(), requestor()],
-                to: 'ed.mroz.11@gmail.com',
-                subject: "Jenkins stage status"
+                to: 'adamegnon@gmail.com',
+                subject: "Jenkins"
 }
