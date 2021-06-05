@@ -9,7 +9,7 @@ stages {
 	        sh 'git pull origin master'
 		/* sh 'docker rm node_app_server'
 		sh 'docker rm node_app_client' */
-                sh 'docker-compose up -d'
+                //sh 'docker-compose up -d'
 	   }
 	   post {
 		failure {
@@ -23,8 +23,8 @@ stages {
 	  stage('Test') {
 	   steps {
 	  	echo 'Testing stage.'
-	   	sh "chmod +x -R ${env.WORKSPACE}"
-	   	sh './tests.sh'
+	   	//sh "chmod +x -R ${env.WORKSPACE}"
+	   	//sh './tests.sh'
 	   }
 		  
 	   post {
@@ -39,7 +39,7 @@ stages {
 	stage('Deploy') {
 	   steps {
 	  	echo 'Deploy stage.'
-		sh ' docker build -t messaging-app -f docker/Dockerfile-deploy . '
+		//sh ' docker build -t messaging-app -f docker/Dockerfile-deploy . '
 	   }
 		  
 	   post {
