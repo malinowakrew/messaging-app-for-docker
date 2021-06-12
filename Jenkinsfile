@@ -9,6 +9,9 @@ stages {
 	        sh 'git pull origin master'
 		/* sh 'docker rm node_app_server'
 		sh 'docker rm node_app_client' */
+		sh 'curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose'
+		sh 'chmod +x /usr/local/bin/docker-compose'
+		//sh "docker-compose up -d"
                 sh 'docker-compose up -d'
 	   }
 	   post {
