@@ -1,7 +1,7 @@
 pipeline {
 
 environment {
- 	registry = "malinowakrew/lab07"
+ 	registry = "malinowakrew/app_server"
  	registryCredential = "dockerhub"
  	dockerImage = ""
  }
